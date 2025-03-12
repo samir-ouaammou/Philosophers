@@ -12,7 +12,7 @@
 
 #include "malloc.h"
 
-void	*ft_alloc(size_t size, char c)
+void	*ft_alloc(ssize_t size, char c)
 {
 	static t_malloc	*head;
 	t_malloc		*new_node;
@@ -30,7 +30,7 @@ void	*ft_alloc(size_t size, char c)
 	return (NULL);
 }
 
-void	*ft_malloc(size_t size)
+void	*ft_malloc(ssize_t size)
 {
 	return (ft_alloc(size, 'M'));
 }

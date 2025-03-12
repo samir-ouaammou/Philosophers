@@ -29,7 +29,7 @@ void	ft_lst_add_back(t_malloc **head, t_malloc *new)
 	temp->next = new;
 }
 
-t_malloc	*ft_lst_new(size_t size)
+t_malloc	*ft_lst_new(ssize_t size)
 {
 	t_malloc	*new_node;
 	void		*ptr;
