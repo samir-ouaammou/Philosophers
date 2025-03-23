@@ -1,4 +1,4 @@
-SRC = Philo_mian.c  Philo_parsing.c  Philo_routine.c malloc/malloc.c malloc/malloc_utils.c
+SRC = Philo_main.c  Philo_parsing.c  Philo_routine.c malloc/malloc.c malloc/malloc_utils.c
 
 OBJ = $(SRC:.c=.o)
 
