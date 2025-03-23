@@ -1,4 +1,4 @@
-#include "Philo.h"
+#include "Philo_header.h"
 
 void    ft_philo_one(t_philo *philo)
 {

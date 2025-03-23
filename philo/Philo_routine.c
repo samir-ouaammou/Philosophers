@@ -1,4 +1,4 @@
-#include "Philo.h"
+#include "Philo_header.h"
 
 void ft_usleep(size_t time_to_sleep)
 {

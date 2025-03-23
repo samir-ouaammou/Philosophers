@@ -1,5 +1,5 @@
-#ifndef PHILO_H
-#define PHILO_H
+#ifndef PHILO_HEADER_H
+#define PHILO_HEADER_H
 
 #include <stdio.h>
 #include <stdlib.h>

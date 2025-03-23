@@ -63,39 +63,26 @@ void    ft_philo_pars(t_data *data, int ac, char **av)
         ft_exit(0);
 }
 
-size_t ft_get_current_time(void)
-{
-    struct timeval current_time;
-
-    gettimeofday(&current_time, NULL);
-    return (current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
-}
-
 void    ft_philo_init(t_data *data)
 {
-    short   i;
+    size_t   i;
 
-    if (!data)
-        ft_print_usage_and_exit("ft_philo_init arguments.");
-    data->forks = ft_malloc(sizeof(pthread_mutex_t) * data->num_philos);
-    data->philos = ft_malloc(sizeof(t_philo) * data->num_philos);
-    data->time_start_program = ft_get_current_time();
-    data->is_died = 0;
+    data->forks = sem_open("/forks", O_CREAT, 0644, data->num_philos);
+    data->print = sem_open("/print", O_CREAT, 0644, 1);
+    data->monitor = sem_open("/monitor", O_CREAT, 0644, 1);
+    data->philos = ft_malloc(data->num_philos * sizeof(t_philo));
+    data->start_time = ft_get_current_time();
+    data->i = 0;
     i = 0;
     while (i < data->num_philos)
     {
-        data->philos[i].id_philo = i + 1;
+        data->philos[i].id = i + 1;
         data->philos[i].time_to_die = data->time_to_die;
         data->philos[i].time_to_eat = data->time_to_eat;
         data->philos[i].time_to_sleep = data->time_to_sleep;
         data->philos[i].num_to_eat = data->num_to_eat;
-        pthread_mutex_init(&data->forks[i], NULL);
-        data->philos[i].left_fork = &data->forks[i];
-        data->philos[i].right_fork = &data->forks[(i + 1) % data->num_philos];
-        data->philos[i].print_mutex = ft_malloc(sizeof(pthread_mutex_t));
-        pthread_mutex_init(data->philos[i].print_mutex, NULL);
-        data->philos[i].last_meal_time = ft_get_current_time();
+        data->philos[i].last_meal = data->start_time;
         data->philos[i].data = data;
         i++;
-    }    
+    }
 }
