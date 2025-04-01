@@ -85,7 +85,7 @@ philo_bonus/           # Bonus part (semaphore-based synchronization)
    ```
 2. Navigate to the project directory:
    ```bash
-   cd 1337-Philo/Projects
+   cd 1337-Philosophers/Projects/Philo
    ```
 3. Compile the source files using `make`:
    ```bash
@@ -115,15 +115,11 @@ For the bonus part:
    cd ..
    cd philo_bonus
    ```
-2. Navigate to the project directory:
-   ```bash
-   cd 1337-Philo_bonus/Projects
-   ```
-3. Compile the bonus version using:
+2. Compile the bonus version using:
    ```bash
    make 
    ```
-4. Run the bonus program:
+3. Run the bonus program:
    ```bash
    ./philo_bonus 5 800 200 200 
    ```
