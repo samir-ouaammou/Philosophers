@@ -85,7 +85,7 @@ philo_bonus/           # Bonus part (semaphore-based synchronization)
    ```
 2. Navigate to the project directory:
    ```bash
-   cd 1337-Philosophers/Projects/Philo
+   cd 1337-Philosophers/Projects/philo
    ```
 3. Compile the source files using `make`:
    ```bash
