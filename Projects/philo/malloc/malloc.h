@@ -19,7 +19,7 @@ typedef struct s_malloc
 {
 	void			*ptr;
 	struct s_malloc	*next;
-}	t_malloc;
+}					t_malloc;
 
 void				ft_exit(int status);
 void				*ft_malloc(ssize_t size);
