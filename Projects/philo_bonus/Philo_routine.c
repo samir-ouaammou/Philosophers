@@ -44,6 +44,8 @@ void	ft_philosopher_routine(t_philo *philo)
 		}
 		sem_wait(philo->data->forks);
 		ft_print_status(philo, "has taken a fork");
+		if (philo->id % 2 == 0)
+			usleep(100);
 		sem_wait(philo->data->forks);
 		ft_print_status(philo, "has taken a fork");
 		ft_print_status(philo, "is eating");
