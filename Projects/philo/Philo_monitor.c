@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Philo_routine_utels.c                              :+:      :+:    :+:   */
+/*   Philo_monitor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/03 15:44:03 by souaammo          #+#    #+#             */
-/*   Updated: 2025/04/03 15:44:05 by souaammo         ###   ########.fr       */
+/*   Created: 2025/04/04 14:41:35 by souaammo          #+#    #+#             */
+/*   Updated: 2025/04/04 14:41:38 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_remainder_of_func_ft_monitor_threads(t_data *data, short i)
 	pthread_mutex_unlock(data->philos[i].print_mutex);
 	data->is_died = 1;
 }
+
 void	*ft_monitor_threads(void *arg)
 {
 	t_data	*data;
