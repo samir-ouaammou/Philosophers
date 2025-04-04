@@ -42,7 +42,7 @@ int	ft_philosopher_routine(t_philo *philo)
 		if (philo->id % 2 == 1)
 			usleep(200);
 		if (philo->data->num_philos < 100)
-			usleep(200);
+			usleep(300);
 		sem_wait(philo->data->forks);
 		ft_print_status(philo, "has taken a fork");
 		sem_wait(philo->data->forks);
