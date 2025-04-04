@@ -88,10 +88,8 @@ size_t	ft_get_current_time(void)
 	return (current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
 }
 
-void	ft_philo_init(t_data *data)
+void	ft_philo_init(t_data *data, short i)
 {
-	short	i;
-
 	if (!data)
 		ft_print_usage_and_exit("ft_philo_init arguments.");
 	data->forks = ft_malloc(sizeof(pthread_mutex_t) * data->num_philos);
@@ -99,7 +97,6 @@ void	ft_philo_init(t_data *data)
 	data->time_start_program = ft_get_current_time();
 	data->is_died = 0;
 	data->is_print = 0;
-	i = -1;
 	while (++i < data->num_philos)
 	{
 		data->philos[i].id_philo = i + 1;
@@ -108,6 +105,7 @@ void	ft_philo_init(t_data *data)
 		data->philos[i].time_to_sleep = data->time_to_sleep;
 		data->philos[i].num_to_eat = data->num_to_eat;
 		pthread_mutex_init(&data->forks[i], NULL);
+		pthread_mutex_init(&data->last_meal, NULL);
 		data->philos[i].left_fork = &data->forks[i];
 		data->philos[i].right_fork = &data->forks[(i + 1) % data->num_philos];
 		data->philos[i].print_mutex = ft_malloc(sizeof(pthread_mutex_t));

@@ -69,7 +69,7 @@ int	main(int ac, char **av)
 	if (ac != 5 && ac != 6)
 		ft_print_usage_and_exit(NULL);
 	ft_philo_pars(&data, ac, av);
-	ft_philo_init(&data);
+	ft_philo_init(&data, -1);
 	if (data.num_philos == 1)
 		ft_philo_one(&data.philos[0]);
 	else

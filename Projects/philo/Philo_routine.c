@@ -64,7 +64,9 @@ void	*ft_philosopher_routine(void *arg)
 			return ((philo->data->is_died = 1), (NULL));
 		ft_lock_fork(philo);
 		ft_print_status(philo, "is eating");
+		pthread_mutex_lock(&philo->data->last_meal);
 		philo->last_meal_time = ft_get_current_time();
+		pthread_mutex_unlock(&philo->data->last_meal);
 		ft_usleep(philo->time_to_eat);
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);

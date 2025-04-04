@@ -39,6 +39,7 @@ typedef struct s_philo
 
 typedef struct s_data
 {
+	short				i;
 	short				is_died;
 	short				is_print;
 	short				num_philos;
@@ -49,15 +50,17 @@ typedef struct s_data
 	size_t				num_to_eat;
 	t_philo				*philos;
 	pthread_t			monitor_threads;
+	pthread_mutex_t		last_meal;
 	pthread_mutex_t		*forks;
 }						t_data;
 
 size_t					ft_get_current_time(void);
-void					ft_philo_init(t_data *data);
 void					*ft_monitor_threads(void *arg);
 void					ft_usleep(size_t time_to_sleep);
 void					*ft_philosopher_routine(void *arg);
 void					ft_print_usage_and_exit(char *msg);
+void					ft_philo_init(t_data *data, short i);
 void					ft_print_status(t_philo *philo, char *msg);
 void					ft_philo_pars(t_data *data, int ac, char **av);
+void					ft_remainder_of_monitor_func(t_data *data, short i);
 #endif
