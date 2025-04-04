@@ -24,6 +24,7 @@ typedef struct s_data	t_data;
 
 typedef struct s_philo
 {
+	short				i;
 	short				id_philo;
 	size_t				time_to_die;
 	size_t				time_to_eat;
@@ -40,6 +41,7 @@ typedef struct s_philo
 typedef struct s_data
 {
 	short				i;
+	short				j;
 	short				is_died;
 	short				is_print;
 	short				num_philos;
@@ -64,5 +66,6 @@ void					ft_print_usage_and_exit(char *msg);
 void					ft_philo_init(t_data *data, short i);
 void					ft_print_status(t_philo *philo, char *msg);
 void					ft_philo_pars(t_data *data, int ac, char **av);
-void					ft_remainder_of_monitor_func(t_data *data, short i);
+int						ft_remainder_of_monitor_func1(t_data *data);
+void					ft_remainder_of_monitor_func2(t_data *data, short i);
 #endif

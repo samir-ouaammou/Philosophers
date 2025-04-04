@@ -32,16 +32,13 @@ void	ft_print_status(t_philo *philo, char *status)
 	sem_post(philo->data->print);
 }
 
-void	ft_philosopher_routine(t_philo *philo)
+int	ft_philosopher_routine(t_philo *philo)
 {
 	while (1)
 	{
 		if ((philo->num_to_eat == 0) || (ft_get_current_time()
 				- philo->last_meal > philo->time_to_die))
-		{
-			sem_post(philo->data->monitor);
-			return ;
-		}
+			return (sem_post(philo->data->monitor), 0);
 		if (philo->data->num_philos < 100 && philo->id % 2 != 0)
 			usleep(200);
 		if (philo->data->num_philos < 100 && philo->id % 2 == 0)

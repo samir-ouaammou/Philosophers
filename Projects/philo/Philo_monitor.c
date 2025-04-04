@@ -17,38 +17,47 @@ void	*ft_monitor_threads(void *arg)
 	t_data	*data;
 
 	data = (t_data *)arg;
-	int	i = 0;
+	data->j = -1;
 	pthread_mutex_lock(&data->died_mutex);
 	while (!data->is_died)
 	{
-		if (i == 0)
+		if (++data->j == 0)
 			pthread_mutex_unlock(&data->died_mutex);
-		i++;
 		data->i = -1;
 		while (++data->i < data->num_philos)
 		{
 			pthread_mutex_lock(data->philos[data->i].print_mutex);
 			pthread_mutex_lock(&data->last_meal);
-			if (ft_get_current_time() - data->philos[data->i].last_meal_time
-				> data->philos[data->i].time_to_die)
-			{
-				pthread_mutex_unlock(&data->last_meal);
-				pthread_mutex_lock(&data->died_mutex);
-				if (data->is_died)
-					return ((pthread_mutex_unlock(&data->died_mutex)), (pthread_mutex_unlock
-							(data->philos[data->i].print_mutex)), (NULL));
-				pthread_mutex_unlock(&data->died_mutex);
-				return ((ft_remainder_of_monitor_func(data, data->i)), (NULL));
-			}
-			pthread_mutex_unlock(&data->last_meal);
-			pthread_mutex_unlock(data->philos[data->i].print_mutex);
+			if (ft_remainder_of_monitor_func1(data))
+				return (NULL);
 		}
 		usleep(500);
 	}
 	return (NULL);
 }
 
-void	ft_remainder_of_monitor_func(t_data *data, short i)
+int	ft_remainder_of_monitor_func1(t_data *data)
+{
+	if (ft_get_current_time() - data->philos[data->i].last_meal_time
+		> data->philos[data->i].time_to_die)
+	{
+		pthread_mutex_unlock(&data->last_meal);
+		pthread_mutex_lock(&data->died_mutex);
+		if (data->is_died)
+		{
+			pthread_mutex_unlock(&data->died_mutex);
+			pthread_mutex_unlock (data->philos[data->i].print_mutex);
+			return (1);
+		}
+		pthread_mutex_unlock(&data->died_mutex);
+		return ((ft_remainder_of_monitor_func2(data, data->i)), (1));
+	}
+	pthread_mutex_unlock(&data->last_meal);
+	pthread_mutex_unlock(data->philos[data->i].print_mutex);
+	return (0);
+}
+
+void	ft_remainder_of_monitor_func2(t_data *data, short i)
 {
 	pthread_mutex_lock(&data->died_mutex);
 	data->is_print = 1;

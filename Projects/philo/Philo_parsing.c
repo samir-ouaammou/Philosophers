@@ -99,6 +99,7 @@ void	ft_philo_init(t_data *data, short i)
 	data->is_print = 0;
 	while (++i < data->num_philos)
 	{
+		data->philos->i = -1;
 		data->philos[i].id_philo = i + 1;
 		data->philos[i].time_to_die = data->time_to_die;
 		data->philos[i].time_to_eat = data->time_to_eat;

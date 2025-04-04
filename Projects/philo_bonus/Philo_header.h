@@ -59,7 +59,7 @@ void					ft_philo_init(t_data *data);
 void					ft_philo_one(t_philo *philo);
 void					ft_usleep(size_t time_to_sleep);
 void					ft_print_usage_and_exit(char *msg);
-void					ft_philosopher_routine(t_philo *philo);
+int						ft_philosopher_routine(t_philo *philo);
 void					ft_print_status(t_philo *philo, char *status);
 void					ft_philo_pars(t_data *data, int ac, char **av);
 

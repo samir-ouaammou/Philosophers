@@ -61,21 +61,35 @@ void	ft_lock_fork(t_philo *philo)
 	}
 }
 
+int	ft_remainder_of_func_ft_philosopher_routine(t_philo *philo)
+{
+	pthread_mutex_unlock(philo->right_fork);
+	pthread_mutex_unlock(philo->left_fork);
+	if (philo->num_to_eat > 0)
+		philo->num_to_eat--;
+	if (ft_get_current_time() - philo->last_meal_time > philo->time_to_die)
+		return (usleep(100), (ft_print_status(philo, "died")), 1);
+	ft_print_status(philo, "is sleeping");
+	ft_usleep(philo->time_to_sleep);
+	ft_print_status(philo, "is thinking");
+	return (0);
+}
+
 void	*ft_philosopher_routine(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	int	i = 0;
+	philo->i = -1;
 	pthread_mutex_lock(&philo->data->died_mutex);
 	while (!philo->data->is_died)
 	{
-		if (i == 0)	
+		if (++philo->i == 0)
 			pthread_mutex_unlock(&philo->data->died_mutex);
-		i++;
 		pthread_mutex_lock(&philo->data->died_mutex);
 		if (philo->num_to_eat == 0)
-			return ((philo->data->is_died = 1), (NULL));
+			return ((pthread_mutex_unlock(&philo->data->died_mutex)),
+				(philo->data->is_died = 1), (NULL));
 		pthread_mutex_unlock(&philo->data->died_mutex);
 		ft_lock_fork(philo);
 		ft_print_status(philo, "is eating");
@@ -83,15 +97,8 @@ void	*ft_philosopher_routine(void *arg)
 		philo->last_meal_time = ft_get_current_time();
 		pthread_mutex_unlock(&philo->data->last_meal);
 		ft_usleep(philo->time_to_eat);
-		pthread_mutex_unlock(philo->right_fork);
-		pthread_mutex_unlock(philo->left_fork);
-		if (philo->num_to_eat > 0)
-			philo->num_to_eat--;
-		if (ft_get_current_time() - philo->last_meal_time > philo->time_to_die)
-			return (usleep(100), (ft_print_status(philo, "died")), (NULL));
-		ft_print_status(philo, "is sleeping");
-		ft_usleep(philo->time_to_sleep);
-		ft_print_status(philo, "is thinking");
+		if (ft_remainder_of_func_ft_philosopher_routine(philo))
+			return (NULL);
 	}
 	return (0);
 }
