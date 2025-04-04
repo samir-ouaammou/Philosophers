@@ -39,9 +39,9 @@ int	ft_philosopher_routine(t_philo *philo)
 		if ((philo->num_to_eat == 0) || (ft_get_current_time()
 				- philo->last_meal > philo->time_to_die))
 			return (sem_post(philo->data->monitor), 0);
-		if (philo->data->num_philos < 100 && philo->id % 2 != 0)
+		if (philo->id % 2 == 1)
 			usleep(200);
-		if (philo->data->num_philos < 100 && philo->id % 2 == 0)
+		if (philo->data->num_philos < 100)
 			usleep(200);
 		sem_wait(philo->data->forks);
 		ft_print_status(philo, "has taken a fork");
