@@ -5,12 +5,12 @@
 #                                                     +:+ +:+         +:+      #
 #    By: souaammo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/04/03 15:13:44 by souaammo          #+#    #+#              #
-#    Updated: 2025/04/03 15:13:47 by souaammo         ###   ########.fr        #
+#    Created: 2025/04/03 15:43:13 by souaammo          #+#    #+#              #
+#    Updated: 2025/04/03 15:43:15 by souaammo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC = Philo_main.c  Philo_parsing.c  Philo_routine.c malloc/malloc.c malloc/malloc_utils.c
+SRC = Philo_main.c  Philo_parsing.c  Philo_routine.c Philo_monitor.c malloc/malloc.c malloc/malloc_utils.c
 
 OBJ = $(SRC:.c=.o)
 

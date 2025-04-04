@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/03 15:14:28 by souaammo          #+#    #+#             */
-/*   Updated: 2025/04/03 15:14:30 by souaammo         ###   ########.fr       */
+/*   Created: 2025/04/03 15:43:45 by souaammo          #+#    #+#             */
+/*   Updated: 2025/04/03 15:43:46 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,9 @@ void	ft_philo_init(t_data *data)
 	data->philos = ft_malloc(sizeof(t_philo) * data->num_philos);
 	data->time_start_program = ft_get_current_time();
 	data->is_died = 0;
-	i = 0;
-	while (i < data->num_philos)
+	data->is_print = 0;
+	i = -1;
+	while (++i < data->num_philos)
 	{
 		data->philos[i].id_philo = i + 1;
 		data->philos[i].time_to_die = data->time_to_die;
@@ -113,6 +114,5 @@ void	ft_philo_init(t_data *data)
 		pthread_mutex_init(data->philos[i].print_mutex, NULL);
 		data->philos[i].last_meal_time = ft_get_current_time();
 		data->philos[i].data = data;
-		i++;
 	}
 }

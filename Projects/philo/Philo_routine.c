@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/03 15:14:40 by souaammo          #+#    #+#             */
-/*   Updated: 2025/04/03 15:14:41 by souaammo         ###   ########.fr       */
+/*   Created: 2025/04/03 15:43:55 by souaammo          #+#    #+#             */
+/*   Updated: 2025/04/03 15:43:56 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_print_status(t_philo *philo, char *msg)
 {
 	size_t	current_time;
 
-	if (philo->data->is_died)
+	if (philo->data->is_died || philo->data->is_print)
 		return ;
 	current_time = ft_get_current_time();
 	pthread_mutex_lock(philo->print_mutex);
@@ -38,6 +38,7 @@ void	ft_lock_fork(t_philo *philo)
 {
 	if (philo->id_philo % 2 == 0)
 	{
+		usleep(200);
 		pthread_mutex_lock(philo->right_fork);
 		ft_print_status(philo, "has taken a fork");
 		pthread_mutex_lock(philo->left_fork);
@@ -70,41 +71,10 @@ void	*ft_philosopher_routine(void *arg)
 		if (philo->num_to_eat > 0)
 			philo->num_to_eat--;
 		if (ft_get_current_time() - philo->last_meal_time > philo->time_to_die)
-			return ((ft_print_status(philo, "died")), (NULL));
+			return (usleep(100), (ft_print_status(philo, "died")), (NULL));
 		ft_print_status(philo, "is sleeping");
 		ft_usleep(philo->time_to_sleep);
 		ft_print_status(philo, "is thinking");
 	}
 	return (0);
-}
-
-void	*ft_monitor_threads(void *arg)
-{
-	t_data	*data;
-	short	i;
-
-	data = (t_data *)arg;
-	while (!data->is_died)
-	{
-		i = -1;
-		while (++i < data->num_philos)
-		{
-			pthread_mutex_lock(data->philos[i].print_mutex);
-			if (ft_get_current_time()
-				- data->philos[i].last_meal_time > data->philos[i].time_to_die)
-			{
-				if (data->is_died)
-					return ((pthread_mutex_unlock(data->philos[i].print_mutex)),
-						(NULL));
-				printf("%ld\t%d\tdied\n", ft_get_current_time()
-					- data->time_start_program, data->philos[i].id_philo);
-				pthread_mutex_unlock(data->philos[i].print_mutex);
-				data->is_died = 1;
-				return (NULL);
-			}
-			pthread_mutex_unlock(data->philos[i].print_mutex);
-		}
-		usleep(500);
-	}
-	return (NULL);
 }

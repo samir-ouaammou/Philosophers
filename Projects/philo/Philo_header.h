@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/03 15:14:00 by souaammo          #+#    #+#             */
-/*   Updated: 2025/04/03 15:14:01 by souaammo         ###   ########.fr       */
+/*   Created: 2025/04/03 15:43:23 by souaammo          #+#    #+#             */
+/*   Updated: 2025/04/03 15:43:24 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_philo
 typedef struct s_data
 {
 	short				is_died;
+	short				is_print;
 	short				num_philos;
 	size_t				time_start_program;
 	size_t				time_to_die;
