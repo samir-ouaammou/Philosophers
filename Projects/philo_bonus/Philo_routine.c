@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/03 15:15:45 by souaammo          #+#    #+#             */
-/*   Updated: 2025/04/03 15:15:47 by souaammo         ###   ########.fr       */
+/*   Created: 2025/04/03 15:49:28 by souaammo          #+#    #+#             */
+/*   Updated: 2025/04/03 15:49:29 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	ft_philosopher_routine(t_philo *philo)
 				- philo->last_meal > philo->time_to_die))
 		{
 			sem_post(philo->data->monitor);
-			ft_exit(0);
+			return ;
 		}
+		if (philo->id % 2 != 0)
+			usleep(200);
 		sem_wait(philo->data->forks);
 		ft_print_status(philo, "has taken a fork");
-		if (philo->id % 2 == 0)
-			usleep(100);
 		sem_wait(philo->data->forks);
 		ft_print_status(philo, "has taken a fork");
 		ft_print_status(philo, "is eating");
