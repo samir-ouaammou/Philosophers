@@ -38,7 +38,8 @@ void	ft_lock_fork(t_philo *philo)
 {
 	if (philo->id_philo % 2 == 0)
 	{
-		usleep(200);
+		if (philo->data->num_philos > 100)
+			usleep(200);
 		pthread_mutex_lock(philo->right_fork);
 		ft_print_status(philo, "has taken a fork");
 		pthread_mutex_lock(philo->left_fork);
@@ -46,6 +47,8 @@ void	ft_lock_fork(t_philo *philo)
 	}
 	else
 	{
+		if (philo->data->num_philos <= 100)
+			usleep(200);
 		pthread_mutex_lock(philo->left_fork);
 		ft_print_status(philo, "has taken a fork");
 		pthread_mutex_lock(philo->right_fork);

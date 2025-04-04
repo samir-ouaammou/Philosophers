@@ -42,7 +42,9 @@ void	ft_philosopher_routine(t_philo *philo)
 			sem_post(philo->data->monitor);
 			return ;
 		}
-		if (philo->id % 2 != 0)
+		if (philo->data->num_philos < 100 && philo->id % 2 != 0)
+			usleep(200);
+		if (philo->data->num_philos < 100 && philo->id % 2 == 0)
 			usleep(200);
 		sem_wait(philo->data->forks);
 		ft_print_status(philo, "has taken a fork");
