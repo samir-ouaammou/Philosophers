@@ -51,6 +51,8 @@ typedef struct s_data
 	t_philo				*philos;
 	pthread_t			monitor_threads;
 	pthread_mutex_t		last_meal;
+	pthread_mutex_t		died_mutex;
+	pthread_mutex_t		print;
 	pthread_mutex_t		*forks;
 }						t_data;
 

@@ -17,8 +17,13 @@ void	*ft_monitor_threads(void *arg)
 	t_data	*data;
 
 	data = (t_data *)arg;
+	int	i = 0;
+	pthread_mutex_lock(&data->died_mutex);
 	while (!data->is_died)
 	{
+		if (i == 0)
+			pthread_mutex_unlock(&data->died_mutex);
+		i++;
 		data->i = -1;
 		while (++data->i < data->num_philos)
 		{
@@ -28,9 +33,11 @@ void	*ft_monitor_threads(void *arg)
 				> data->philos[data->i].time_to_die)
 			{
 				pthread_mutex_unlock(&data->last_meal);
+				pthread_mutex_lock(&data->died_mutex);
 				if (data->is_died)
-					return ((pthread_mutex_unlock
+					return ((pthread_mutex_unlock(&data->died_mutex)), (pthread_mutex_unlock
 							(data->philos[data->i].print_mutex)), (NULL));
+				pthread_mutex_unlock(&data->died_mutex);
 				return ((ft_remainder_of_monitor_func(data, data->i)), (NULL));
 			}
 			pthread_mutex_unlock(&data->last_meal);
@@ -43,10 +50,14 @@ void	*ft_monitor_threads(void *arg)
 
 void	ft_remainder_of_monitor_func(t_data *data, short i)
 {
+	pthread_mutex_lock(&data->died_mutex);
 	data->is_print = 1;
+	pthread_mutex_unlock(&data->died_mutex);
 	usleep(500);
 	printf("%ld\t%d\tdied\n", ft_get_current_time() - data->time_start_program,
 		data->philos[i].id_philo);
 	pthread_mutex_unlock(data->philos[i].print_mutex);
+	pthread_mutex_lock(&data->died_mutex);
 	data->is_died = 1;
+	pthread_mutex_unlock(&data->died_mutex);
 }

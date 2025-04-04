@@ -104,6 +104,7 @@ void	ft_philo_init(t_data *data, short i)
 		data->philos[i].time_to_eat = data->time_to_eat;
 		data->philos[i].time_to_sleep = data->time_to_sleep;
 		data->philos[i].num_to_eat = data->num_to_eat;
+		pthread_mutex_init(&data->died_mutex, NULL);
 		pthread_mutex_init(&data->forks[i], NULL);
 		pthread_mutex_init(&data->last_meal, NULL);
 		data->philos[i].left_fork = &data->forks[i];

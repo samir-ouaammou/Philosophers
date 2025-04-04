@@ -25,8 +25,13 @@ void	ft_print_status(t_philo *philo, char *msg)
 {
 	size_t	current_time;
 
+	pthread_mutex_lock(&philo->data->died_mutex);
 	if (philo->data->is_died || philo->data->is_print)
+	{
+		pthread_mutex_unlock(&philo->data->died_mutex);
 		return ;
+	}
+	pthread_mutex_unlock(&philo->data->died_mutex);
 	current_time = ft_get_current_time();
 	pthread_mutex_lock(philo->print_mutex);
 	printf("%ld\t%d\t%s\n", current_time - philo->data->time_start_program,
@@ -61,10 +66,17 @@ void	*ft_philosopher_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	int	i = 0;
+	pthread_mutex_lock(&philo->data->died_mutex);
 	while (!philo->data->is_died)
 	{
+		if (i == 0)	
+			pthread_mutex_unlock(&philo->data->died_mutex);
+		i++;
+		pthread_mutex_lock(&philo->data->died_mutex);
 		if (philo->num_to_eat == 0)
 			return ((philo->data->is_died = 1), (NULL));
+		pthread_mutex_unlock(&philo->data->died_mutex);
 		ft_lock_fork(philo);
 		ft_print_status(philo, "is eating");
 		pthread_mutex_lock(&philo->data->last_meal);
