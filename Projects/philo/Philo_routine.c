@@ -88,7 +88,8 @@ void	*ft_philosopher_routine(void *arg)
 		pthread_mutex_unlock(&philo->data->died_mutex);
 		pthread_mutex_lock(&philo->data->died_mutex);
 		if (philo->num_to_eat == 0)
-			return ((philo->data->is_died = 1), (pthread_mutex_unlock(&philo->data->died_mutex)), (NULL));
+			return ((philo->data->is_died = 1),
+				(pthread_mutex_unlock(&philo->data->died_mutex)), (NULL));
 		pthread_mutex_unlock(&philo->data->died_mutex);
 		ft_lock_fork(philo);
 		ft_print_status(philo, "is eating");
