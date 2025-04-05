@@ -17,12 +17,12 @@ void	*ft_monitor_threads(void *arg)
 	t_data	*data;
 
 	data = (t_data *)arg;
-	data->j = -1;
-	pthread_mutex_lock(&data->died_mutex);
-	while (!data->is_died)
+	while (1)
 	{
-		if (++data->j == 0)
-			pthread_mutex_unlock(&data->died_mutex);
+		pthread_mutex_lock(&data->died_mutex);
+		if (data->is_died)
+			return ((pthread_mutex_unlock(&data->died_mutex)), (NULL));
+		pthread_mutex_unlock(&data->died_mutex);
 		data->i = -1;
 		while (++data->i < data->num_philos)
 		{

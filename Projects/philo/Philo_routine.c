@@ -80,16 +80,15 @@ void	*ft_philosopher_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	philo->i = -1;
-	pthread_mutex_lock(&philo->data->died_mutex);
-	while (!philo->data->is_died)
+	while (1)
 	{
-		if (++philo->i == 0)
-			pthread_mutex_unlock(&philo->data->died_mutex);
+		pthread_mutex_lock(&philo->data->died_mutex);
+		if (philo->data->is_died)
+			return ((pthread_mutex_unlock(&philo->data->died_mutex)), (NULL));
+		pthread_mutex_unlock(&philo->data->died_mutex);
 		pthread_mutex_lock(&philo->data->died_mutex);
 		if (philo->num_to_eat == 0)
-			return ((pthread_mutex_unlock(&philo->data->died_mutex)),
-				(philo->data->is_died = 1), (NULL));
+			return ((philo->data->is_died = 1), (pthread_mutex_unlock(&philo->data->died_mutex)), (NULL));
 		pthread_mutex_unlock(&philo->data->died_mutex);
 		ft_lock_fork(philo);
 		ft_print_status(philo, "is eating");
@@ -100,5 +99,5 @@ void	*ft_philosopher_routine(void *arg)
 		if (ft_remainder_of_func_ft_philosopher_routine(philo))
 			return (NULL);
 	}
-	return (0);
+	return (NULL);
 }
