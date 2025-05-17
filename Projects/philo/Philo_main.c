@@ -14,11 +14,10 @@
 
 void	ft_philo_one(t_philo *philo)
 {
-	pthread_mutex_lock(philo->left_fork);
-	ft_print_status(philo, "has taken a fork");
-	pthread_mutex_unlock(philo->left_fork);
-	ft_usleep(philo->time_to_die);
-	ft_print_status(philo, "died");
+	pthread_t	thread;
+
+	pthread_create(&thread, NULL, ft_print_status_one_philo, philo);
+	pthread_join(thread, NULL);
 }
 
 void	ft_philo_create(t_data *data)

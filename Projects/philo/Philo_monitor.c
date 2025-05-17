@@ -70,3 +70,15 @@ void	ft_remainder_of_monitor_func2(t_data *data, short i)
 	data->is_died = 1;
 	pthread_mutex_unlock(&data->died_mutex);
 }
+void	*ft_print_status_one_philo(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	pthread_mutex_lock(philo->left_fork);
+	ft_print_status(philo, "has taken a fork");
+	pthread_mutex_unlock(philo->left_fork);
+	ft_usleep(philo->time_to_die);
+	ft_print_status(philo, "died");
+	return (NULL);
+}

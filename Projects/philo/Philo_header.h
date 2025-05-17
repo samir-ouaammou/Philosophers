@@ -64,6 +64,7 @@ void					ft_usleep(size_t time_to_sleep);
 void					*ft_philosopher_routine(void *arg);
 void					ft_print_usage_and_exit(char *msg);
 void					ft_philo_init(t_data *data, short i);
+void					*ft_print_status_one_philo(void *arg);
 void					ft_print_status(t_philo *philo, char *msg);
 void					ft_philo_pars(t_data *data, int ac, char **av);
 int						ft_remainder_of_monitor_func1(t_data *data);
