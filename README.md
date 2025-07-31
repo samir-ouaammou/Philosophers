@@ -81,11 +81,11 @@ philo_bonus/           # Bonus part (semaphore-based synchronization)
 
 1. Clone the repository to your local machine:
    ```bash
-   git clone https://github.com/samir-ouaammou/1337-Philosophers 
+   git clone https://github.com/samir-ouaammou/Philosophers 
    ```
 2. Navigate to the project directory:
    ```bash
-   cd 1337-Philosophers/Project/philo
+   cd Philosophers/Project/philo
    ```
 3. Compile the source files using `make`:
    ```bash
